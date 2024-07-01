@@ -10,7 +10,7 @@ import {
     faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./Footer.css";
+import './Footer.css'
 import logoWhiteImage from "../../assets/logo-white.png";
 
 const contacts = [
