@@ -46,7 +46,7 @@ const ReservationForm = ({
     };
 
     return (
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit} aria-labelledby="reservation-form">
             <FormField
                 label="Date"
                 htmlFor="reservation-date"
@@ -60,8 +60,12 @@ const ReservationForm = ({
                     min={minimumDate}
                     value={date}
                     required={true}
+                    aria-required="true"
+                    aria-invalid={!isDateValid()}
+                    aria-describedby={!isDateValid() ? "date-error" : undefined}
                     onChange={handleDateChange}
                 />
+
             </FormField>
             <FormField
                 label="Time"
@@ -75,6 +79,9 @@ const ReservationForm = ({
                         name="reservation-time"
                         value={time}
                         required={true}
+                        aria-required="true"
+                        aria-invalid={!isTimeValid()}
+                        aria-describedby={!isTimeValid() ? "time-error" : undefined}
                         onChange={handleTimeChange}
                     >
                         {availableTimes.map((times) => (
@@ -83,6 +90,11 @@ const ReservationForm = ({
                             </option>
                         ))}
                     </select>
+                    {!isTimeValid() && (
+                        <span id="time-error" role="alert">
+                            {invalidTimeErrorMessage}
+                        </span>
+                    )}
                 </div>
             </FormField>
             <FormField
@@ -99,6 +111,9 @@ const ReservationForm = ({
                     min={minimumNumberOfGuests}
                     max={maximumNumberOfGuests}
                     required={true}
+                    aria-required="true"
+                    aria-invalid={!isNumberOfGuestsValid()}
+                    aria-describedby={!isNumberOfGuestsValid() ? "guests-error" : undefined}
                     onChange={(e) => setNumberGuests(e.target.value)}
                 />
             </FormField>
@@ -114,6 +129,9 @@ const ReservationForm = ({
                         name="reservation-occasion"
                         value={occasion}
                         required={true}
+                        aria-required="true"
+                        aria-invalid={!isOccasionValid()}
+                        aria-describedby={!isOccasionValid() ? "occasion-error" : undefined}
                         onChange={(e) => setOccasion(e.target.value)}
                     >
                         {occasions.map((occasion) => (
@@ -122,6 +140,11 @@ const ReservationForm = ({
                             </option>
                         ))}
                     </select>
+                    {!isOccasionValid() && (
+                        <span id="occasion-error" role="alert">
+                            {invalidOccasionErrorMessage}
+                        </span>
+                    )}
                 </div>
             </FormField>
             <button
